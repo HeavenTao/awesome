@@ -24,6 +24,8 @@ beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.wallpaper = RC.vars.wallpaper
 -- }}}
 
+awful.spawn.with_shell("xset r rate 200 50")
+awful.spawn.with_shell("fcitx5")
 modkey = RC.vars.modkey
 
 -- Custom Local Library
