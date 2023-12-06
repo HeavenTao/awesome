@@ -23,6 +23,7 @@ beautiful.wallpaper = RC.vars.wallpaper
 
 awful.spawn.with_shell("xset r rate 200 50")
 awful.spawn.with_shell("fcitx5")
+awful.spawn.with_shell("xrandr --output HDMI-2 --left-of DVI-D-1")
 modkey = RC.vars.modkey
 
 -- Custom Local Library
