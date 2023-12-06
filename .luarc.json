@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-    "description": "Awesomewm setting of sumneko.lua",
+    "description": "Awesomewm setting of lua server",
     "diagnostics": {
         "enable": true,
         "globals": [
