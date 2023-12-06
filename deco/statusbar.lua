@@ -59,20 +59,22 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
+        layout = wibox.layout.stack,
         {
             widget = wibox.widget.textbox,
-            text = "hello"
+            text = "hello1",
+            visible = false,
         },
         {
             widget = wibox.widget.textbox,
-            text = "hello2"
+            text = "hello2",
+            visible = false,
         },
         {
             widget = wibox.widget.textbox,
-            text = "hello3"
+            text = "hello3",
+            visible = true,
         }
-
         --{ -- Left widgets
         --layout = wibox.layout.fixed.horizontal,
         --RC.launcher,
