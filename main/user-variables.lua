@@ -17,7 +17,7 @@ local _M = {
     modkey = "Mod4",
 
     -- user defined wallpaper
-    wallpaper = home .. "/.config/awesome/wallpaper/background.jpg",
+    wallpaper = home .. "/.config/awesome/wallpaper/background2.jpg",
     --wallpaper = home .. "/Pictures/your-wallpaper-here.jpg",
 }
 
