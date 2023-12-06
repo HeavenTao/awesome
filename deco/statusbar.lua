@@ -15,6 +15,9 @@ local taglist_buttons  = deco.taglist()
 local tasklist_buttons = deco.tasklist()
 local theme            = require("main.theme")
 
+--components
+local timer            = require("component.timer")
+
 local _M               = {}
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -59,22 +62,8 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.stack,
-        {
-            widget = wibox.widget.textbox,
-            text = "hello1",
-            visible = false,
-        },
-        {
-            widget = wibox.widget.textbox,
-            text = "hello2",
-            visible = false,
-        },
-        {
-            widget = wibox.widget.textbox,
-            text = "hello3",
-            visible = true,
-        }
+        layout = wibox.layout.align.horizontal,
+        timer,
         --{ -- Left widgets
         --layout = wibox.layout.fixed.horizontal,
         --RC.launcher,
