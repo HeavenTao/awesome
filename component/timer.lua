@@ -3,15 +3,15 @@ local gears = require("gears")
 local theme = require("main.theme")
 local awful = require("awful")
 
-local week = {
-    Monday = "星期一",
-    Tuesday = "星期二",
-    Wednesday = "星期三",
-    Thursday = "星期四",
-    Friday = "星期五",
-    Satarday = "星期六",
-    Sunday = "星期日"
-}
+local week = {}
+
+week["Monday"] = "星期一"
+week["Tuesday"] = "星期二"
+week["Wednesday"] = "星期三"
+week["Thursday"] = "星期四"
+week["Friday"] = "星期五"
+week["Satarday"] = "星期六"
+week["Sunday"] = "星期日"
 
 local textbox = wibox.widget {
     markup = "<span color='" .. theme.text .. "'>" .. "</span>",
@@ -48,13 +48,13 @@ gears.timer {
     autostart = true,
     callback = function()
         awful.spawn.easy_async({ "sh", "-c", "date '+%Y-%m-%d %H:%M,%A'" }, function(out)
+            out = out:gsub("\n$", "")
             local strList = {}
             for value in out:gmatch("[^,]+") do
                 table.insert(strList, value)
             end
-            --gears.debug.print_error()
-            --local weekStr = week[strList[2]];
-            --textbox.markup = "<span color='" .. theme.text .. "'>" .. strList[1] .. weekStr .. "</span>"
+            out = strList[1] .. "  " .. week[strList[2]]
+            textbox.markup = "<span color='" .. theme.text .. "'>" .. out .. "</span>"
         end)
     end
 }
