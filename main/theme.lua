@@ -3,6 +3,7 @@ local _M = {
     bg_transparent = "#FF000000",
     bg = "#b7bdf8",
     border = "#8aadf4",
+    border_active = "#ed8796",
     text = "#181926"
 }
 return _M
