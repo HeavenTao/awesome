@@ -3,15 +3,7 @@ local gears = require("gears")
 local theme = require("main.theme")
 local awful = require("awful")
 
-local week = {}
-
-week["Monday"] = "星期一"
-week["Tuesday"] = "星期二"
-week["Wednesday"] = "星期三"
-week["Thursday"] = "星期四"
-week["Friday"] = "星期五"
-week["Satarday"] = "星期六"
-week["Sunday"] = "星期日"
+local week = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" }
 
 local textbox = wibox.widget {
     markup = "<span color='" .. theme.text .. "'>" .. "</span>",
@@ -43,19 +35,16 @@ widget:connect_signal("mouse::leave", function()
 end)
 
 gears.timer {
-    timeout = 1,
+    timeout = 10,
     call_now = true,
     autostart = true,
     callback = function()
-        awful.spawn.easy_async({ "sh", "-c", "date '+%Y-%m-%d %H:%M,%A'" }, function(out)
-            out = out:gsub("\n$", "")
-            local strList = {}
-            for value in out:gmatch("[^,]+") do
-                table.insert(strList, value)
-            end
-            out = strList[1] .. "  " .. week[strList[2]]
-            textbox.markup = "<span color='" .. theme.text .. "'>" .. out .. "</span>"
-        end)
+        local date = os.date("*t")
+        local text = table.concat({ date.year, "-", string.format("%02d", date.month), "-", string.format("%02d",
+            date.day), " ", string.format("%02d", date.hour), ":", string.format("%02d", date.min), "  ", week
+            [date.wday] })
+
+        textbox.markup = "<span color='" .. theme.text .. "'>" .. text .. "</span>"
     end
 }
 
