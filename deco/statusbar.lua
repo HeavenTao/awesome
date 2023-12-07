@@ -69,10 +69,6 @@ awful.screen.connect_for_each_screen(function(s)
             text = "hello"
         },
         timer,
-        {
-            widget = wibox.widget.textbox,
-            text = "hello2"
-        },
         --{ -- Left widgets
         --layout = wibox.layout.fixed.horizontal,
         --RC.launcher,
