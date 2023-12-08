@@ -10,7 +10,6 @@ local textbox = wibox.widget {
     widget = wibox.widget.textbox
 };
 
-local month_calendar = awful.widget.calendar_popup.month()
 
 local widget = wibox.widget {
     {
@@ -40,10 +39,8 @@ gears.timer {
     autostart = true,
     callback = function()
         local date = os.date("*t")
-        local text = table.concat({ date.year, "-", string.format("%02d", date.month), "-", string.format("%02d",
-            date.day), " ", string.format("%02d", date.hour), ":", string.format("%02d", date.min), "  ", week
-            [date.wday] })
-
+        local text = string.format("%d-%02d-%02d %02d:%02d  %s", date.year, date.month, date.day, date.hour, date.min,
+            week[date.wday])
         textbox.markup = "<span color='" .. theme.text .. "'>" .. text .. "</span>"
     end
 }
