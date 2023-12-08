@@ -17,6 +17,7 @@ local theme            = require("main.theme")
 
 --components
 local timer            = require("component.timer")
+local taglist          = require("component.taglist")
 
 local _M               = {}
 
@@ -43,19 +44,12 @@ awful.screen.connect_for_each_screen(function(s)
         awful.button({}, 5, function() awful.layout.inc(-1) end)
     ))
 
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
-    }
-
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
-    }
+    --s.mytasklist = awful.widget.tasklist {
+    --screen  = s,
+    --filter  = awful.widget.tasklist.filter.currenttags,
+    --buttons = tasklist_buttons
+    --}
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, bg = theme.bg_transparent })
@@ -64,11 +58,12 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         expand = "outside",
+        taglist(s),
+        timer,
         {
             widget = wibox.widget.textbox,
             text = "hello"
-        },
-        timer,
+        }
         --{ -- Left widgets
         --layout = wibox.layout.fixed.horizontal,
         --RC.launcher,
