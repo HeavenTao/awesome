@@ -53,9 +53,10 @@ local function getTagList(s)
                         return math.min(width, height), math.min(width, height)
                     end,
                     draw = function(_, _, cr, width, height)
-                        local y = height / 2
-                        shape.circle(cr, 5, y, 5, theme.tag)
-                    end
+                        shape.rounded_bar(cr, 0, height / 2, width, 5, theme.tag)
+                    end,
+                    forced_width = 25,
+                    height = 10
                 }
             end
 
