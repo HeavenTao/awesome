@@ -6,6 +6,8 @@ local _M = {
     --bg = gears.color.parse_color("#b7bdf8"),
     border = "#8aadf4",
     border_active = "#ed8796",
-    text = "#181926"
+    text = "#181926",
+    tag = "#f4dbd6",
+    tag_active = "#a6da95"
 }
 return _M
