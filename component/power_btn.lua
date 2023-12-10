@@ -1,5 +1,7 @@
 local wibox = require("wibox")
 local theme = require("main.theme")
+local gears = require("gears")
+local awful = require("awful")
 
 local color = {
     normal = "#ed8796",
@@ -27,6 +29,30 @@ end)
 
 widget:connect_signal("mouse::leave", function()
     update_status(color.normal)
+end)
+
+widget:connect_signal("button::press", function()
+    awful.popup {
+        widget       = {
+            {
+                {
+                    value = 0.5,
+                    forced_width = 100,
+                    forced_height = 30,
+                    widget = wibox.widget.progressbar
+                },
+                layout = wibox.layout.fixed.vertical
+            },
+            margins = 10,
+            widget = wibox.container.margin
+        },
+        border_color = "#11ff00",
+        border_width = 5,
+        placement    = awful.placement.top_left,
+        shape        = gears.shape.rounded_rect,
+        visible      = true,
+        ontop        = true,
+    }
 end)
 
 return widget
