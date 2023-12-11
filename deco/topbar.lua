@@ -60,11 +60,11 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         expand = "outside",
         taglist(s),
-        timer,
+        timer(),
         {
             {
                 {
-                    power_btn,
+                    power_btn(s.mywibox),
                     left = 10,
                     right = 5,
                     widget = wibox.container.margin

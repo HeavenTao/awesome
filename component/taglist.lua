@@ -6,7 +6,7 @@ local taglist_buttons = require("deco.taglist")
 local shape = require("utils.shape")
 
 
-local function getTagList(s)
+local function taglist(s)
     local widget = wibox.widget {
         {
             {
@@ -72,4 +72,4 @@ local function getTagList(s)
     return widget
 end
 
-return getTagList
+return taglist
