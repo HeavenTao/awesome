@@ -6,7 +6,8 @@ local awful = require("awful")
 local function power_btn(parent)
     local color = {
         normal = "#ed8796",
-        mouseenter = "#8aadf4"
+        mouseenter = "#8aadf4",
+        restart = "#a6da95"
     }
 
     local icon = "⏻";
@@ -33,43 +34,38 @@ local function power_btn(parent)
     end)
 
     local popup = awful.popup {
-        widget              = {
+        widget       = {
             {
                 {
                     id = "shutdown_btn",
                     widget = wibox.widget.textbox,
                     markup = "<span color='" .. color.normal .. "'>" .. "⏻" .. "</span>" .. "<span color='" .. theme.text .. "'>" .. "  关机" .. "</span>",
-                    forced_width = 50
+                    forced_width = 50,
+                    buttons = awful.button({}, 1, function()
+                        awful.spawn.with_shell("shutdown 0")
+                    end)
                 },
                 {
                     id = "restart_btn",
                     widget = wibox.widget.textbox,
-                    markup = "<span color='" .. color.normal .. "'>" .. "⏻" .. "</span>" .. "<span color='" .. theme.text .. "'>" .. "  重启" .. "</span>",
-                    forced_width = 50
+                    markup = "<span color='" .. color.restart .. "'>" .. "" .. "</span>" .. "<span color='" .. theme.text .. "'>" .. "  重启" .. "</span>",
+                    forced_width = 50,
+                    buttons = awful.button({}, 1, function()
+                        awful.spawn.with_shell("shutdown -r 0")
+                    end)
                 },
                 layout = wibox.layout.fixed.vertical
             },
             margins = 5,
             widget = wibox.container.margin
         },
-        border_color        = theme.border,
-        border_width        = 2,
-        bg                  = theme.bg_normal,
-        shape               = gears.shape.rounded_rect,
-        visible             = false,
-        ontop               = true,
-        hide_on_right_click = true
+        border_color = theme.border,
+        border_width = 2,
+        bg           = theme.bg_normal,
+        shape        = gears.shape.rounded_rect,
+        visible      = false,
+        ontop        = true,
     }
-
-    local shutdown_btn = popup.widget:get_children_by_id("shutdown_btn")[1]
-    shutdown_btn:connect_signal("button::press", function()
-        awful.spawn.with_shell("shutdown 0")
-    end)
-
-    local restart_btn = popup.widget:get_children_by_id("restart_btn")[1]
-    restart_btn:connect_signal("button::press", function()
-        awful.spawn.with_shell("shutdown -r 0")
-    end)
 
     widget:connect_signal("button::press", function()
         popup.visible = not popup.visible
