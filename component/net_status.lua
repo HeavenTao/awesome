@@ -23,15 +23,26 @@ local function net_status()
         icon_color = theme.text,
         color = theme.text
     }
+    local status = {
+        open_icon = "",
+        close_icon = "󰖪"
+    }
 
-    local function update_text(rx_speed, tx_speed)
+    local function update_text(rx_speed, tx_speed, net_status)
+        local net_icon = status.close_icon
+        if net_status == "UP" then
+            net_icon = status.open_icon
+        end
+
         local rx_icon = "<span color='" .. download.icon_color .. "'>" .. download.icon .. "</span>"
         local rx_text = "<span color='" ..
             download.color .. "'>" .. string.format("%.2f", rx_speed) .. "kb/s" .. "</span>"
 
         local tx_icon = "<span color='" .. upload.icon_color .. "'>" .. upload.icon .. "</span>"
         local tx_text = "<span color='" .. upload.color .. "'>" .. string.format("%.2f", tx_speed) .. "kb/s" .. "</span>"
-        widget.markup = rx_icon .. "  " .. rx_text .. "  " .. tx_icon .. "  " .. tx_text
+
+        local net_text = "<span color='" .. theme.text .. "'>" .. net_icon .. "</span>"
+        widget.markup = net_text .. " " .. rx_icon .. "  " .. rx_text .. "  " .. tx_icon .. "  " .. tx_text
     end
 
     gears.timer {
@@ -47,6 +58,8 @@ local function net_status()
                 local rx_bytes = status_data[interface].stats64.rx.bytes
                 local tx_bytes = status_data[interface].stats64.tx.bytes
 
+                local status = status_data[interface].operstate;
+
                 if last_tx_bytes ~= 0 and last_rx_bytes ~= 0 then
                     local rx_speed = (rx_bytes - last_rx_bytes) / 1024 / delay
                     local tx_speed = (tx_bytes - last_tx_bytes) / 1024 / delay
@@ -54,7 +67,7 @@ local function net_status()
                     gears.debug.print_warning("RX:" .. string.format("%.2f", rx_speed) .. 'kb/s')
                     gears.debug.print_warning("TX:" .. string.format("%.2f", tx_speed) .. 'kb/s')
 
-                    update_text(rx_speed, tx_speed)
+                    update_text(rx_speed, tx_speed, status)
                 end
 
                 last_rx_bytes = rx_bytes
