@@ -19,6 +19,7 @@ local theme            = require("main.theme")
 local timer            = require("component.timer")
 local taglist          = require("component.taglist")
 local power_btn        = require("component.power_btn")
+local net_status       = require("component.net_status")
 
 local _M               = {}
 
@@ -64,10 +65,19 @@ awful.screen.connect_for_each_screen(function(s)
         {
             {
                 {
-                    power_btn(s.mywibox),
-                    left = 10,
-                    right = 5,
-                    widget = wibox.container.margin
+                    {
+                        net_status(),
+                        left = 10,
+                        right = 5,
+                        widget = wibox.container.margin
+                    },
+                    {
+                        power_btn(s.mywibox),
+                        left = 10,
+                        right = 5,
+                        widget = wibox.container.margin
+                    },
+                    layout = wibox.layout.fixed.horizontal
                 },
                 bg = theme.bg,
                 shape_border_width = 2,
