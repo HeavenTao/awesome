@@ -20,6 +20,7 @@ local timer            = require("component.timer")
 local taglist          = require("component.taglist")
 local power_btn        = require("component.power_btn")
 local net_status       = require("component.net_status")
+local border           = require("container.border")
 
 local _M               = {}
 
@@ -61,47 +62,41 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         expand = "outside",
         taglist(s),
-        timer(),
         {
             {
-                {
-                    {
-                        net_status(),
-                        left = 10,
-                        right = 5,
-                        widget = wibox.container.margin
-                    },
-                    {
-                        power_btn(s.mywibox),
-                        left = 10,
-                        right = 5,
-                        widget = wibox.container.margin
-                    },
-                    layout = wibox.layout.fixed.horizontal
-                },
-                bg = theme.bg,
-                shape_border_width = 2,
-                shape_border_color = theme.border,
-                widget = wibox.container.background,
-                shape = gears.shape.rounded_bar,
+                widget = wibox.widget.textbox,
+                text = "hello",
+                forced_width = 200
             },
-            halign = "right",
-            widget = wibox.container.place
-        }
-        --{ -- Left widgets
-        --layout = wibox.layout.fixed.horizontal,
-        --RC.launcher,
-        --s.mytaglist,
-        --s.mypromptbox,
+            widget = border,
+        },
+        timer(),
+        --{
+        --{
+        --{
+        --{
+        --net_status(),
+        --left = 10,
+        --right = 5,
+        --widget = wibox.container.margin
         --},
-        --s.mytasklist, -- Middle widget
-        --{ -- Right widgets
-        --layout = wibox.layout.fixed.horizontal,
-        --mykeyboardlayout,
-        --wibox.widget.systray(),
-        --mytextclock,
-        --s.mylayoutbox,
+        --{
+        --power_btn(s.mywibox),
+        --left = 10,
+        --right = 5,
+        --widget = wibox.container.margin
         --},
+        --layout = wibox.layout.fixed.horizontal
+        --},
+        --bg = theme.bg,
+        --shape_border_width = 2,
+        --shape_border_color = theme.border,
+        --widget = wibox.container.background,
+        --shape = gears.shape.rounded_bar,
+        --},
+        --halign = "right",
+        --widget = wibox.container.place
+        --}
     }
 end)
 -- }}}

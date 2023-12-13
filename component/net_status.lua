@@ -64,8 +64,8 @@ local function net_status()
                     local rx_speed = (rx_bytes - last_rx_bytes) / 1024 / delay
                     local tx_speed = (tx_bytes - last_tx_bytes) / 1024 / delay
 
-                    gears.debug.print_warning("RX:" .. string.format("%.2f", rx_speed) .. 'kb/s')
-                    gears.debug.print_warning("TX:" .. string.format("%.2f", tx_speed) .. 'kb/s')
+                    --gears.debug.print_warning("RX:" .. string.format("%.2f", rx_speed) .. 'kb/s')
+                    --gears.debug.print_warning("TX:" .. string.format("%.2f", tx_speed) .. 'kb/s')
 
                     update_text(rx_speed, tx_speed, status)
                 end
