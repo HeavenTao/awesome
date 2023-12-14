@@ -1,6 +1,7 @@
 -- Standard awesome library
 local gears            = require("gears")
 local awful            = require("awful")
+local theme            = require("catppuccin.mocha")
 -- Wibox handling library
 local wibox            = require("wibox")
 
@@ -13,14 +14,13 @@ local deco             = {
 
 local taglist_buttons  = deco.taglist()
 local tasklist_buttons = deco.tasklist()
-local theme            = require("main.theme")
 
 --components
 local timer            = require("component.timer")
 local taglist          = require("component.taglist")
 local power_btn        = require("component.power_btn")
 local net_status       = require("component.net_status")
-local border           = require("container.border")
+local border           = require("component.border")
 
 local _M               = {}
 
@@ -55,22 +55,30 @@ awful.screen.connect_for_each_screen(function(s)
     --}
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, bg = theme.bg_transparent })
+    local border_width = 1.5
+    s.mywibox = awful.wibar({ position = "top", screen = s, bg = "#00000000", height = 25 })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         expand = "outside",
-        taglist(s),
+        border({
+            widget = wibox.widget.textbox,
+            text = "hello1"
+        }),
+        border({
+            widget = wibox.widget.textbox,
+            text = "hello2"
+        }),
         {
-            {
+            border({
                 widget = wibox.widget.textbox,
-                text = "hello",
-                forced_width = 200
-            },
-            widget = border,
+                text = "hello3"
+            }),
+            forced_height = 25,
+            halign = "right",
+            widget = wibox.container.place
         },
-        timer(),
         --{
         --{
         --{
