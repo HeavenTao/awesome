@@ -30,9 +30,6 @@ local function new(widgets)
     )
 
     gears.table.crush(rec, border, true)
-
-    local bg = rec:get_children_by_id("border")[1]
-
     return rec
 end
 

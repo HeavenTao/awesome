@@ -1,5 +1,4 @@
 local wibox = require("wibox")
-local theme = require("main.theme")
 local gears = require("gears")
 local awful = require("awful")
 
@@ -15,7 +14,7 @@ local function power_btn(parent)
     local widget = wibox.widget {
         widget = wibox.widget.textbox,
         markup = "<span color='" .. color.normal .. "'>" .. "⏻" .. "</span>",
-        font = theme.font .. " 12",
+        --font = theme.font .. " 12",
         forced_width = 16,
     }
 
@@ -39,7 +38,7 @@ local function power_btn(parent)
                 {
                     id = "shutdown_btn",
                     widget = wibox.widget.textbox,
-                    markup = "<span color='" .. color.normal .. "'>" .. "⏻" .. "</span>" .. "<span color='" .. theme.text .. "'>" .. "  关机" .. "</span>",
+                    --markup = "<span color='" .. color.normal .. "'>" .. "⏻" .. "</span>" .. "<span color='" .. theme.text .. "'>" .. "  关机" .. "</span>",
                     forced_width = 50,
                     buttons = awful.button({}, 1, function()
                         awful.spawn.with_shell("shutdown 0")
@@ -48,7 +47,7 @@ local function power_btn(parent)
                 {
                     id = "restart_btn",
                     widget = wibox.widget.textbox,
-                    markup = "<span color='" .. color.restart .. "'>" .. "" .. "</span>" .. "<span color='" .. theme.text .. "'>" .. "  重启" .. "</span>",
+                    --markup = "<span color='" .. color.restart .. "'>" .. "" .. "</span>" .. "<span color='" .. theme.text .. "'>" .. "  重启" .. "</span>",
                     forced_width = 50,
                     buttons = awful.button({}, 1, function()
                         awful.spawn.with_shell("shutdown -r 0")
@@ -59,9 +58,9 @@ local function power_btn(parent)
             margins = 5,
             widget = wibox.container.margin
         },
-        border_color = theme.border,
+        --border_color = theme.border,
         border_width = 2,
-        bg           = theme.bg_normal,
+        --bg           = theme.bg_normal,
         shape        = gears.shape.rounded_rect,
         visible      = false,
         ontop        = true,

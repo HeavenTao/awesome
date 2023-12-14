@@ -2,7 +2,6 @@ local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
 local json = require("lunajson")
-local theme = require("main.theme")
 
 local function net_status()
     local widget = wibox.widget {
@@ -15,13 +14,13 @@ local function net_status()
     local delay = 5
     local upload = {
         icon = "",
-        icon_color = theme.text,
-        color = theme.text
+        --icon_color = theme.text,
+        --color = theme.text
     }
     local download = {
         icon = "",
-        icon_color = theme.text,
-        color = theme.text
+        --icon_color = theme.text,
+        --color = theme.text
     }
     local status = {
         open_icon = "",
@@ -41,8 +40,8 @@ local function net_status()
         local tx_icon = "<span color='" .. upload.icon_color .. "'>" .. upload.icon .. "</span>"
         local tx_text = "<span color='" .. upload.color .. "'>" .. string.format("%.2f", tx_speed) .. "kb/s" .. "</span>"
 
-        local net_text = "<span color='" .. theme.text .. "'>" .. net_icon .. "</span>"
-        widget.markup = net_text .. " " .. rx_icon .. "  " .. rx_text .. "  " .. tx_icon .. "  " .. tx_text
+        --local net_text = "<span color='" .. theme.text .. "'>" .. net_icon .. "</span>"
+        --widget.markup = net_text .. " " .. rx_icon .. "  " .. rx_text .. "  " .. tx_icon .. "  " .. tx_text
     end
 
     gears.timer {

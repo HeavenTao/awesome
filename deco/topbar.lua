@@ -62,20 +62,14 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         expand = "outside",
-        border({
-            widget = wibox.widget.textbox,
-            text = "hello1"
-        }),
-        border({
-            widget = wibox.widget.textbox,
-            text = "hello2"
-        }),
+        border(taglist(s)),
+        border(timer()),
         {
             border({
                 widget = wibox.widget.textbox,
-                text = "hello3"
+                text = "hello3",
+                forced_height = 25
             }),
-            forced_height = 25,
             halign = "right",
             widget = wibox.container.place
         },
