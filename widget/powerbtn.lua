@@ -4,6 +4,7 @@ local gears = require("gears")
 local awful = require("awful")
 local theme = require("catppuccin.mocha")
 local beautiful = require("beautiful")
+local common = require("utils.common")
 local log = require("utils.log")
 
 
@@ -39,18 +40,12 @@ local menus = {
     }
 }
 
-function powerbtn:build_markup(text, color)
-    local markup = ""
-    markup = "<span color='" .. color .. "'>" .. text .. "</span>"
-    return markup
-end
-
 function powerbtn:set_normal()
-    self.markup = self:build_markup(icon.normal.icon, icon.normal.color)
+    self.markup = common.build_markup(icon.normal.icon, icon.normal.color)
 end
 
 function powerbtn:set_mouseover()
-    self.markup = (self:build_markup(icon.mouseover.icon, icon.mouseover.color))
+    self.markup = common.build_markup(icon.mouseover.icon, icon.mouseover.color)
 end
 
 function powerbtn:set_popup(s)
@@ -87,7 +82,7 @@ function powerbtn:set_popup(s)
             {
                 {
                     {
-                        markup = self:build_markup(item.icon, item.icon_color),
+                        markup = common.build_markup(item.icon, item.icon_color),
                         widget = wibox.widget.textbox,
                     },
                     {
@@ -132,13 +127,20 @@ local function new(parent)
     local widget = base.make_widget_declarative({
         font = beautiful.font,
         widget = wibox.widget.textbox,
-        forced_width = 25,
         forced_height = 25
     })
 
     gears.table.crush(widget, powerbtn, true)
 
     widget:set_normal()
+
+    widget:connect_signal("mouse::enter", function()
+        widget:set_mouseover()
+    end)
+
+    widget:connect_signal("mouse::leave", function()
+        widget:set_normal()
+    end)
 
     widget:set_popup()
 

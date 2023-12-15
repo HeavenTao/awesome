@@ -65,7 +65,9 @@ awful.screen.connect_for_each_screen(function(s)
         border(timer()),
         {
             border({
+                netstatus(),
                 powerbtn(s),
+                spacing = 8,
                 layout = wibox.layout.fixed.horizontal
             }),
             halign = "right",
