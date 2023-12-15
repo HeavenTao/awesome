@@ -57,7 +57,6 @@ function netstatus:start()
 end
 
 function netstatus:getSpeed()
-    log.log("hello")
     awful.spawn.easy_async("ip -s -h -j link", function(stdout)
         local status_data = json.decode(stdout)
         local interface = 2

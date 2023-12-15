@@ -1,7 +1,7 @@
 local _M = {
     build_markup = function(text, color)
         return "<span color='" .. color .. "'>" .. text .. "</span>"
-    end
+    end,
 }
 
 return _M
