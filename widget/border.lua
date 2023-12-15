@@ -8,7 +8,7 @@ local border = { mt = {} }
 
 local function new(widgets)
     local border_width = 1.5
-    local rec = base.make_widget_declarative(
+    local widget = base.make_widget_declarative(
         {
             {
                 {
@@ -29,8 +29,8 @@ local function new(widgets)
         }
     )
 
-    gears.table.crush(rec, border, true)
-    return rec
+    gears.table.crush(widget, border, true)
+    return widget
 end
 
 function border.mt:__call(...)

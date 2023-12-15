@@ -16,11 +16,11 @@ local taglist_buttons  = deco.taglist()
 local tasklist_buttons = deco.tasklist()
 
 --components
-local timer            = require("component.timer")
-local taglist          = require("component.taglist")
-local power_btn        = require("component.power_btn")
-local net_status       = require("component.net_status")
-local border           = require("component.border")
+local timer            = require("widget.timer")
+local taglist          = require("widget.taglist")
+local powerbtn         = require("widget.powerbtn")
+local netstatus        = require("widget.netstatus")
+local border           = require("widget.border")
 
 local _M               = {}
 
@@ -28,7 +28,6 @@ local _M               = {}
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock            = wibox.widget.textclock()
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
@@ -66,9 +65,8 @@ awful.screen.connect_for_each_screen(function(s)
         border(timer()),
         {
             border({
-                widget = wibox.widget.textbox,
-                text = "hello3",
-                forced_height = 25
+                powerbtn(s),
+                layout = wibox.layout.fixed.horizontal
             }),
             halign = "right",
             widget = wibox.container.place

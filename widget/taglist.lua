@@ -43,26 +43,26 @@ function taglist:update_taglist()
 end
 
 local function new(s)
-    local rec = base.make_widget_declarative {
+    local widget = base.make_widget_declarative {
         id = "container",
         spacing = 10,
         layout = wibox.layout.fixed.horizontal,
         buttons = taglist_buttons()
     }
 
-    gears.table.crush(rec, taglist, true)
+    gears.table.crush(widget, taglist, true)
 
 
     awful.tag.attached_connect_signal(s, "property::selected", function()
-        rec:update_taglist()
+        widget:update_taglist()
     end)
     awful.tag.attached_connect_signal(s, "property::activated", function()
-        rec:update_taglist()
+        widget:update_taglist()
     end)
 
-    rec:update_taglist()
+    widget:update_taglist()
 
-    return rec
+    return widget
 end
 
 function taglist.mt:__call(...)

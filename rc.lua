@@ -19,6 +19,7 @@ require("main.error-handling")
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.wallpaper = RC.vars.wallpaper
+beautiful.font = "CaskaydiaCove NF Regular"
 -- }}}
 
 awful.spawn.with_shell("xset r rate 200 50")
