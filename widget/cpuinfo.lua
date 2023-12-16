@@ -2,6 +2,9 @@ local base = require("wibox.widget.base")
 local wibox = require("wibox")
 local gears = require("gears")
 local log = require("utils.log")
+local common = require("utils.common")
+local theme = require("catppuccin.mocha")
+local beautiful = require("beautiful")
 
 local cpuinfo = { mt = {} }
 
@@ -10,20 +13,46 @@ local delay = 1
 function cpuinfo:getCpuInfo()
     local lines = io.open("/proc/stat", "r")
     if lines == nil then
-        return ""
+        return nil
     end
 
     local first_line = lines:read("*l")
 
+    local numbers = {}
+    for v in string.gmatch(first_line, "%d+") do
+        table.insert(numbers, tonumber(v))
+    end
+
     io.close()
+
+    return numbers
 end
 
-function cpuinfo:stat()
+function cpuinfo:stat(info)
+    if info == nil then
+        return nil
+    end
 
+    local cpu_times = 0
+    for i, v in ipairs(info) do
+        cpu_times = cpu_times + v
+    end
+
+    if self.last_cpu_times ~= 0 and self.last_idle_times ~= 0 then
+        local diff_cpu = cpu_times - self.last_cpu_times
+        local diff_idle = info[4] - self.last_idle_times
+
+        local rate = (diff_cpu - diff_idle) / diff_cpu * 100
+        self:updateText(rate)
+    end
+
+    self.last_cpu_times = cpu_times
+    self.last_idle_times = info[4]
 end
 
-function cpuinfo:updateText()
-
+function cpuinfo:updateText(rate)
+    local text = common.build_markup(math.ceil(rate) .. "%", theme.green.hex)
+    self.markup = common.build_markup("CPU:", theme.text.hex) .. text
 end
 
 function cpuinfo:start()
@@ -32,15 +61,20 @@ function cpuinfo:start()
         call_now = true,
         autostart = true,
         callback = function()
-            self:getCpuInfo()
+            local info = self:getCpuInfo()
+            self:stat(info)
         end
     })
 end
 
 local function new(args)
     local widget = base.make_widget_declarative({
-        widget = wibox.widget.textbox
+        widget = wibox.widget.textbox,
+        font = beautiful.font .. " 12"
     })
+
+    widget.last_cpu_times = 0
+    widget.last_idle_times = 0
 
     gears.table.crush(widget, cpuinfo, true)
 
