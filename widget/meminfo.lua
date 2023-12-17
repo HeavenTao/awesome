@@ -44,9 +44,9 @@ function meminfo:start()
                 end
 
                 local total = numbers[1]
-                local used = numbers[2]
+                local free = numbers[3]
 
-                local rate = (used) / total * 100
+                local rate = (1 - (free) / total) * 100
                 self:updateText(rate)
             end)
         end
