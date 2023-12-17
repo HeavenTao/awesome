@@ -22,6 +22,7 @@ local powerbtn         = require("widget.powerbtn")
 local netstatus        = require("widget.netstatus")
 local border           = require("widget.border")
 local cpuinfo          = require("widget.cpuinfo")
+local meminfo          = require("widget.meminfo")
 
 local _M               = {}
 
@@ -66,6 +67,7 @@ awful.screen.connect_for_each_screen(function(s)
         border(timer()),
         {
             border({
+                meminfo(),
                 cpuinfo(),
                 netstatus(),
                 powerbtn(s),
