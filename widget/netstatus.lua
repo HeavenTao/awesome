@@ -82,7 +82,8 @@ local function new(args)
     local widget = wibox.widget {
         widget = wibox.widget.textbox,
         markup = "",
-        font = beautiful.font .. " 10"
+        font = beautiful.font .. " 10",
+        forced_width = 120
     }
 
     gears.table.crush(widget, netstatus, true)

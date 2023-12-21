@@ -70,7 +70,8 @@ end
 local function new(args)
     local widget = base.make_widget_declarative({
         widget = wibox.widget.textbox,
-        font = beautiful.font .. " 12"
+        font = beautiful.font .. " 12",
+        forced_width = 70
     })
 
     widget.last_cpu_times = 0
