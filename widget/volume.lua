@@ -11,35 +11,25 @@ local volume = { mt = {} }
 local interval = 2
 
 function volume:up()
-    local ring = self:get_children_by_id("ring")[1];
-    local value = ring:get_values()[1]
+    local value = self._private.volume
     if value + interval <= 100 then
-        ring:set_value(value + interval)
+        self._private.volume = value + interval
     end
-    log.log(ring:get_values()[1])
+
+    self:update()
 end
 
 function volume:down()
-    local ring = self:get_children_by_id("ring")[1];
-    local value = ring:get_values()[1]
+    local value = self._private.volume
     if value - interval >= 0 then
-        ring:set_value(value - interval)
+        self._private.volume = value - interval
     end
-    log.log(ring:get_values()[1])
-end
 
-function volume:init()
-    self._private.is_mute = false
-
-    awful.spawn.easy_async("", function()
-
-    end)
+    self:update()
 end
 
 function volume:switch_mute()
     self._private.is_mute = not self._private.is_mute
-
-    log.log(tostring(self._private.is_mute))
 
     local img = self:get_children_by_id("img")[1]
 
@@ -48,6 +38,55 @@ function volume:switch_mute()
     else
         img.markup = common.build_markup("", theme.mauve.hex)
     end
+
+    self:update()
+end
+
+function volume:update()
+    local ring = self:get_children_by_id("ring")[1]
+    ring:set_value(self._private.volume)
+
+    os.execute("amixer sset Master " .. self._private.volume .. "%")
+
+    local img = self:get_children_by_id("img")[1]
+    if self._private.is_mute then
+        img.markup = common.build_markup("󰸈", theme.mauve.hex)
+        os.execute("amixer sset Master mute")
+    else
+        img.markup = common.build_markup("", theme.mauve.hex)
+        os.execute("amixer sset Master unmute")
+    end
+end
+
+function volume:init()
+    self._private.is_mute = false
+    self._private.volume = 0
+
+    awful.spawn.easy_async("amixer", function(data)
+        local lines = {}
+        for line in string.gmatch(data, "[^\n]+") do
+            table.insert(lines, line)
+        end
+
+        local params = {}
+        for text in lines[6]:gmatch("(%b[])") do
+            table.insert(params, string.match(text, "%[(.-)%]"))
+        end
+
+        local value = tonumber(string.sub(params[1], 1, -2))
+        local is_mute = false
+        if params[3] == 'on' then
+            is_mute = false
+        else
+            is_mute = true
+        end
+
+        self._private.is_mute = is_mute
+        self._private.volume = value
+
+
+        self:update()
+    end)
 end
 
 local function new(...)
