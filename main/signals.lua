@@ -1,6 +1,7 @@
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
+local log = require("utils.log")
 
 -- Widget and layout library
 local wibox = require("wibox")
