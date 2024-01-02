@@ -2,6 +2,7 @@
 local awful     = require("awful")
 -- Theme handling library
 local beautiful = require("beautiful")
+local theme     = require("catppuccin.mocha")
 
 local _M        = {}
 
@@ -18,7 +19,7 @@ function _M.get(clientkeys, clientbuttons)
             rule = {},
             properties = {
                 border_width     = 5,
-                border_color     = beautiful.border_normal,
+                border_color     = theme.surface2.hex,
                 focus            = awful.client.focus.filter,
                 raise            = true,
                 keys             = clientkeys,
