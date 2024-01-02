@@ -17,15 +17,15 @@ function _M.get(clientkeys, clientbuttons)
         {
             rule = {},
             properties = {
-                border_width  = 0,
-                border_color  = beautiful.border_normal,
-                focus         = awful.client.focus.filter,
-                raise         = true,
-                keys          = clientkeys,
-                buttons       = clientbuttons,
-                screen        = awful.screen.preferred,
-                placement     = awful.placement.no_overlap + awful.placement.no_offscreen,
-                honor_padding = true
+                border_width     = 5,
+                border_color     = beautiful.border_normal,
+                focus            = awful.client.focus.filter,
+                raise            = true,
+                keys             = clientkeys,
+                buttons          = clientbuttons,
+                screen           = awful.screen.preferred,
+                placement        = awful.placement.no_overlap + awful.placement.no_offscreen,
+                size_hints_honor = false
             }
         },
 
