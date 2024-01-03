@@ -2,6 +2,7 @@
 local gears            = require("gears")
 local awful            = require("awful")
 local theme            = require("catppuccin.mocha")
+local log              = require("utils.log")
 -- Wibox handling library
 local wibox            = require("wibox")
 
@@ -24,6 +25,7 @@ local border           = require("widget.border")
 local cpuinfo          = require("widget.cpuinfo")
 local meminfo          = require("widget.meminfo")
 local volumn           = require("widget.volume")
+local menubar          = require("widget.menubar")
 
 local _M               = {}
 
@@ -33,6 +35,8 @@ local _M               = {}
 -- Create a textclock widget
 
 awful.screen.connect_for_each_screen(function(s)
+    menubar.init(s)
+
     -- Wallpaper
     set_wallpaper(s)
 
@@ -64,7 +68,18 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         expand = "outside",
-        border(taglist(s)),
+        {
+            border(
+                {
+                    taglist(s),
+                    s.mypromptbox,
+                    spacing = 8,
+                    layout = wibox.layout.fixed.horizontal
+                }
+            ),
+            halign = "left",
+            widget = wibox.container.place
+        },
         border(timer()),
         {
             border({

@@ -7,8 +7,7 @@ local gears = require("gears")
 local awful = require("awful")
 -- Theme handling library
 local beautiful = require("beautiful")
--- Miscellanous awesome library
-local menubar = require("menubar")
+
 RC = {} -- global namespace, on top before require any modules
 RC.vars = require("main.user-variables")
 
@@ -67,9 +66,6 @@ RC.launcher = awful.widget.launcher(
     { image = beautiful.awesome_icon, menu = RC.mainmenu }
 )
 
--- Menubar configuration
--- Set the terminal for applications that require it
-menubar.utils.terminal = RC.vars.terminal
 
 -- }}}
 

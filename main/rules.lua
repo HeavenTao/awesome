@@ -18,7 +18,7 @@ function _M.get(clientkeys, clientbuttons)
         {
             rule = {},
             properties = {
-                border_width     = 5,
+                border_width     = 4,
                 border_color     = theme.surface2.hex,
                 focus            = awful.client.focus.filter,
                 raise            = true,
