@@ -19,6 +19,9 @@ local _M = {
     -- user defined wallpaper
     wallpaper = home .. "/.config/awesome/wallpaper/background5.png",
     --wallpaper = home .. "/Pictures/your-wallpaper-here.jpg",
+
+    --主屏幕
+    primaryscreen = 2
 }
 
 return _M
