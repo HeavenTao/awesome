@@ -38,11 +38,25 @@ function netstatus:update_text(rx_speed, tx_speed, net_status)
         net_status_text = common.build_markup(icon.close.icon, icon.close.icon_color)
     end
 
-    local rx_text = common.build_markup(string.format("%.2f", rx_speed) .. "kb/s", icon.download.icon_color)
+    local rx_abbr = "kb/s"
+    local tx_abbr = "kb/s"
 
-    local tx_text = common.build_markup(string.format("%.2f", tx_speed) .. "kb/s", icon.upload.icon_color)
+    if rx_speed > 1024 then
+        rx_speed = rx_speed / 1024
+        rx_abbr = "Mb/s"
+    end
 
-    self.markup = net_status_text .. "  " .. rx_text .. " " .. tx_text
+    if tx_speed > 1024 then
+        tx_speed = tx_speed / 1024
+        tx_abbr = "Mb/s"
+    end
+
+
+    local rx_text = common.build_markup(string.format("%.0f", rx_speed) .. rx_abbr, icon.download.icon_color)
+
+    local tx_text = common.build_markup(string.format("%.0f", tx_speed) .. tx_abbr, icon.upload.icon_color)
+
+    self.markup = net_status_text .. rx_text .. " " .. tx_text
 end
 
 function netstatus:start()
@@ -82,8 +96,8 @@ local function new(args)
     local widget = wibox.widget {
         widget = wibox.widget.textbox,
         markup = "",
-        font = beautiful.font .. " 10",
-        forced_width = 200
+        font = beautiful.font,
+        forced_width = 155
     }
 
     gears.table.crush(widget, netstatus, true)

@@ -4,6 +4,7 @@
 
 local home = os.getenv("HOME")
 local primaryscreen = tonumber(os.getenv("AWM_PRIMARY_SCREEN"))
+assert(primaryscreen, "NO AWM_PRIMARY_SCREEN!")
 
 local _M = {
     -- This is used later as the default terminal and editor to run.

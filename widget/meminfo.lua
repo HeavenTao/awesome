@@ -56,8 +56,8 @@ end
 local function new(args)
     local widget = base.make_widget_declarative({
         widget = wibox.widget.textbox,
-        font = beautiful.font .. " 12",
-        forced_width = 80
+        font = beautiful.font,
+        forced_width = 65
     })
 
     gears.table.crush(widget, meminfo, true)
