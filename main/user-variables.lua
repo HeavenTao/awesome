@@ -3,6 +3,7 @@
 -- }}}
 
 local home = os.getenv("HOME")
+local primaryscreen = tonumber(os.getenv("AWM_PRIMARY_SCREEN"))
 
 local _M = {
     -- This is used later as the default terminal and editor to run.
@@ -21,7 +22,7 @@ local _M = {
     --wallpaper = home .. "/Pictures/your-wallpaper-here.jpg",
 
     --主屏幕
-    primaryscreen = 2
+    primaryscreen = primaryscreen
 }
 
 return _M
