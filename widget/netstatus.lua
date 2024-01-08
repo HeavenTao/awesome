@@ -85,7 +85,10 @@ function netstatus:getSpeed()
             local tx_speed = (tx_bytes - self._private.last_tx_bytes) / 1024 / delay
 
             self:update_text(rx_speed, tx_speed, net_status)
+        else
+            self:update_text(0, 0, "UP")
         end
+
 
         self._private.last_rx_bytes = rx_bytes
         self._private.last_tx_bytes = tx_bytes

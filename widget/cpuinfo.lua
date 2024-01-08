@@ -44,6 +44,8 @@ function cpuinfo:stat(info)
 
         local rate = (diff_cpu - diff_idle) / diff_cpu * 100
         self:updateText(rate)
+    else
+        self:updateText(0)
     end
 
     self.last_cpu_times = cpu_times
