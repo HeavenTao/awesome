@@ -31,10 +31,6 @@ local function new(widgets)
 
     gears.table.crush(widget, border, true)
 
-    awesome.connect_signal("screen::focus", function(s)
-        widget:focus()
-    end)
-
     return widget
 end
 

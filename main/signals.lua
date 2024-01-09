@@ -55,7 +55,6 @@ end)
 
 client.connect_signal("focus", function(c)
     c.border_color = theme.blue.hex
-    awesome.emit_signal("screen::focus", c.screen)
 end)
 client.connect_signal("unfocus", function(c) c.border_color = theme.surface2.hex end)
 -- }}}
