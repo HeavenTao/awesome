@@ -2,7 +2,7 @@ local base = require("wibox.widget.base")
 local wibox = require("wibox")
 local gears = require("gears")
 local theme = require("catppuccin.mocha")
-local log = require("utils.log")
+--local log = require("utils.log")
 
 local border = { mt = {} }
 
@@ -32,13 +32,6 @@ local function new(widgets)
     gears.table.crush(widget, border, true)
 
     return widget
-end
-
-function border:focus()
-    local border = self:get_children_by_id("border")[1]
-    if border then
-        --border.bg = theme.surface1.hex
-    end
 end
 
 function border.mt:__call(...)

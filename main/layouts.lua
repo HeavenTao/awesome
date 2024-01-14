@@ -5,7 +5,7 @@ local _M = {}
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-function _M.get()
+function _M.get(...)
     -- Table of layouts to cover with awful.layout.inc, order matters.
     local layouts = {
         --awful.layout.suit.floating,           -- 1:

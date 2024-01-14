@@ -42,7 +42,7 @@ M.awesome = {
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-function _M.get()
+function _M.get(...)
     -- Main Menu
     local menu_items = {
         { "awesome",       M.awesome, beautiful.awesome_subicon },
