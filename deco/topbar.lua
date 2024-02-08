@@ -30,7 +30,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mypromptbox = awful.widget.prompt()
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, bg = "#00000000", height = 25 })
+    s.mywibox = awful.wibar({ position = "top", screen = s, bg = "#00000000", height = 40 })
     if s.index == vars.primaryscreen then
         -- Add widgets to the wibox
         s.mywibox:setup {

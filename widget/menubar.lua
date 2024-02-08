@@ -10,7 +10,7 @@ local _M = {
 
         menubar.geometry = {
             y = 0,
-            height = 25
+            height = 40
         }
 
         menubar.show_categories = false

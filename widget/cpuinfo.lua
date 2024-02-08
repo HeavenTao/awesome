@@ -11,83 +11,83 @@ local cpuinfo = { mt = {} }
 local delay = 1
 
 function cpuinfo:getCpuInfo()
-    local lines = io.open("/proc/stat", "r")
-    if lines == nil then
-        return nil
-    end
+	local lines = io.open("/proc/stat", "r")
+	if lines == nil then
+		return nil
+	end
 
-    local first_line = lines:read("*l")
+	local first_line = lines:read("*l")
 
-    local numbers = {}
-    for v in string.gmatch(first_line, "%d+") do
-        table.insert(numbers, tonumber(v))
-    end
+	local numbers = {}
+	for v in string.gmatch(first_line, "%d+") do
+		table.insert(numbers, tonumber(v))
+	end
 
-    io.close()
+	io.close()
 
-    return numbers
+	return numbers
 end
 
 function cpuinfo:stat(info)
-    if info == nil then
-        return nil
-    end
+	if info == nil then
+		return nil
+	end
 
-    local cpu_times = 0
-    for i, v in ipairs(info) do
-        cpu_times = cpu_times + v
-    end
+	local cpu_times = 0
+	for i, v in ipairs(info) do
+		cpu_times = cpu_times + v
+	end
 
-    if self.last_cpu_times ~= 0 and self.last_idle_times ~= 0 then
-        local diff_cpu = cpu_times - self.last_cpu_times
-        local diff_idle = info[4] - self.last_idle_times
+	if self.last_cpu_times ~= 0 and self.last_idle_times ~= 0 then
+		local diff_cpu = cpu_times - self.last_cpu_times
+		local diff_idle = info[4] - self.last_idle_times
 
-        local rate = (diff_cpu - diff_idle) / diff_cpu * 100
-        self:updateText(rate)
-    else
-        self:updateText(0)
-    end
+		local rate = (diff_cpu - diff_idle) / diff_cpu * 100
+		self:updateText(rate)
+	else
+		self:updateText(0)
+	end
 
-    self.last_cpu_times = cpu_times
-    self.last_idle_times = info[4]
+	self.last_cpu_times = cpu_times
+	self.last_idle_times = info[4]
 end
 
 function cpuinfo:updateText(rate)
-    local text = common.build_markup(math.ceil(rate) .. "%", theme.green.hex)
-    self.markup = common.build_markup("CPU:", theme.text.hex) .. text
+	local text = common.build_markup(math.ceil(rate) .. "%", theme.green.hex)
+	self.markup = common.build_markup("CPU:", theme.text.hex) .. text
 end
 
 function cpuinfo:start()
-    gears.timer({
-        timeout = delay,
-        call_now = true,
-        autostart = true,
-        callback = function()
-            local info = self:getCpuInfo()
-            self:stat(info)
-        end
-    })
+	gears.timer({
+		timeout = delay,
+		call_now = true,
+		autostart = true,
+		callback = function()
+			local info = self:getCpuInfo()
+			self:stat(info)
+		end,
+	})
 end
 
 local function new(args)
-    local widget = base.make_widget_declarative({
-        widget = wibox.widget.textbox,
-        font = beautiful.font,
-        forced_width = 65
-    })
+	local widget = base.make_widget_declarative({
+		widget = wibox.widget.textbox,
+		font = beautiful.font,
+		forced_width = 120,
+	})
 
-    widget.last_cpu_times = 0
-    widget.last_idle_times = 0
+	widget.last_cpu_times = 0
+	widget.last_idle_times = 0
 
-    gears.table.crush(widget, cpuinfo, true)
+	gears.table.crush(widget, cpuinfo, true)
 
-    widget:start()
+	widget:start()
 
-    return widget
+	return widget
 end
 
 function cpuinfo.mt:__call(...)
-    return new(...)
+	return new(...)
 end
 
 return setmetatable(cpuinfo, cpuinfo.mt)
