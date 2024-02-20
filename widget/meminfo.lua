@@ -6,6 +6,7 @@ local log = require("utils.log")
 local common = require("utils.common")
 local theme = require("catppuccin.mocha")
 local beautiful = require("beautiful")
+local dpi = require("beautiful.xresources").apply_dpi
 
 local meminfo = { mt = {} }
 
@@ -56,7 +57,7 @@ local function new(args)
 	local widget = base.make_widget_declarative({
 		widget = wibox.widget.textbox,
 		font = beautiful.font,
-		forced_width = 120,
+		forced_width = dpi(60),
 	})
 
 	gears.table.crush(widget, meminfo, true)

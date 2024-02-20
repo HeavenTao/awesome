@@ -7,6 +7,7 @@ local gears = require("gears")
 local awful = require("awful")
 -- Theme handling library
 local beautiful = require("beautiful")
+local dpi = require("beautiful.xresources").apply_dpi
 
 RC = {} -- global namespace, on top before require any modules
 RC.vars = require("main.user-variables")
@@ -18,8 +19,8 @@ require("main.error-handling")
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.wallpaper = RC.vars.wallpaper
-beautiful.font = "CaskaydiaCove NF Regular 10"
-beautiful.useless_gap = 3
+beautiful.font = "CaskaydiaCove NF Regular " .. dpi(10)
+beautiful.useless_gap = dpi(3)
 -- }}}
 
 awful.spawn.with_shell("xset r rate 200 50")
@@ -29,19 +30,19 @@ modkey = RC.vars.modkey
 
 -- Custom Local Library
 local main = {
-    layouts = require("main.layouts"),
-    tags    = require("main.tags"),
-    menu    = require("main.menu"),
-    rules   = require("main.rules"),
+	layouts = require("main.layouts"),
+	tags = require("main.tags"),
+	menu = require("main.menu"),
+	rules = require("main.rules"),
 }
 
 -- Custom Local Library: Keys and Mouse Binding
 local binding = {
-    globalbuttons = require("binding.globalbuttons"),
-    clientbuttons = require("binding.clientbuttons"),
-    globalkeys    = require("binding.globalkeys"),
-    bindtotags    = require("binding.bindtotags"),
-    clientkeys    = require("binding.clientkeys")
+	globalbuttons = require("binding.globalbuttons"),
+	clientbuttons = require("binding.clientbuttons"),
+	globalkeys = require("binding.globalkeys"),
+	bindtotags = require("binding.bindtotags"),
+	clientkeys = require("binding.clientkeys"),
 }
 
 -- {{{ Layouts
@@ -62,10 +63,7 @@ RC.tags = main.tags()
 RC.mainmenu = awful.menu({ items = main.menu() }) -- in globalkeys
 
 -- a variable needed in statusbar (helper)
-RC.launcher = awful.widget.launcher(
-    { image = beautiful.awesome_icon, menu = RC.mainmenu }
-)
-
+RC.launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = RC.mainmenu })
 
 -- }}}
 
@@ -87,10 +85,7 @@ require("deco.topbar")
 
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
-awful.rules.rules = main.rules(
-    binding.clientkeys(),
-    binding.clientbuttons()
-)
+awful.rules.rules = main.rules(binding.clientkeys(), binding.clientbuttons())
 -- }}}
 
 -- {{{ Signals

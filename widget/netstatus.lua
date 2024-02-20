@@ -6,6 +6,7 @@ local common = require("utils.common")
 local json = require("lunajson")
 local log = require("utils.log")
 local beautiful = require("beautiful")
+local dpi = require("beautiful.xresources").apply_dpi
 
 local netstatus = { mt = {} }
 
@@ -98,7 +99,7 @@ local function new(args)
 		widget = wibox.widget.textbox,
 		markup = "",
 		font = beautiful.font,
-		forced_width = 300,
+		forced_width = dpi(150),
 	})
 
 	gears.table.crush(widget, netstatus, true)
