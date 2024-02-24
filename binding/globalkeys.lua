@@ -33,9 +33,9 @@ function _M.get(...)
 		awful.key({ modkey }, "k", function()
 			awful.client.focus.byidx(-1)
 		end, { description = "focus previous by index", group = "client" }),
-		awful.key({ modkey }, "w", function()
-			RC.mainmenu:show()
-		end, { description = "show main menu", group = "awesome" }),
+		--awful.key({ modkey }, "w", function()
+		--RC.mainmenu:show()
+		--end, { description = "show main menu", group = "awesome" }),
 
 		--   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 		-- Layout manipulation
