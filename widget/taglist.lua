@@ -21,7 +21,7 @@ function taglist:update_taglist()
 					return math.min(width, height), math.min(width, height)
 				end,
 				draw = function(_, _, cr, width, height)
-					shape.rounded_bar(cr, width, height, 5, theme.mauve.hex)
+					shape.rounded_bar(cr, width, height, dpi(5), theme.mauve.hex)
 				end,
 				forced_width = dpi(100),
 				forced_height = dpi(10),
@@ -32,7 +32,7 @@ function taglist:update_taglist()
 					return math.min(width, height), math.min(width, height)
 				end,
 				draw = function(_, _, cr, width, height)
-					shape.rounded_bar(cr, width, height, 5, theme.overlay0.hex)
+					shape.rounded_bar(cr, width, height, dpi(5), theme.overlay0.hex)
 				end,
 				forced_width = dpi(25),
 				height = dpi(10),
