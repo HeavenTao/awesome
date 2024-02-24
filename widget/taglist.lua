@@ -5,6 +5,7 @@ local wibox = require("wibox")
 local theme = require("catppuccin.mocha")
 local taglist_buttons = require("deco.taglist")
 local shape = require("utils.shape")
+local log = require("utils.log")
 local dpi = require("beautiful.xresources").apply_dpi
 
 local taglist = { mt = {} }
